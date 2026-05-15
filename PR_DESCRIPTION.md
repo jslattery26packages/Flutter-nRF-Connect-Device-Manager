@@ -8,8 +8,8 @@ MCUboot reverts to the previous firmware. This is the safe rollback mechanism.
 
 However, there is currently **no way to confirm an image from Dart**. The native
 `ImageManager.confirm()` method exists on both
-[Android](https://github.com/NordicSemiconductor/Android-nRF-Connect-Device-Manager) and
-[iOS](https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager), and the
+[Android](https://github.com/nordicsemi/Android-nRF-Connect-Device-Manager) and
+[iOS](https://github.com/nordicsemi/IOS-nRF-Connect-Device-Manager), and the
 `ImageManager` is already instantiated in both platform `UpdateManager` classes (used by
 `readImageList()`), but `confirm()` is simply not bridged to Dart.
 
