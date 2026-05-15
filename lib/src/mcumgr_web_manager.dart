@@ -182,6 +182,13 @@ class WebUpdateManager extends FirmwareUpdateManager {
   }
 
   @override
+  Future<void> confirmImage(Uint8List hash) {
+    throw UnimplementedError(
+      "confirmImage is not supported on web.",
+    );
+  }
+
+  @override
   Future<void> erase([int? channel]) {
     throw UnimplementedError(
       "erase is not supported on web.",

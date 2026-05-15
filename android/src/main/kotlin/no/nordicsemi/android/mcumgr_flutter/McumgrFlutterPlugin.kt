@@ -60,6 +60,7 @@ class McumgrFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
 	private var managers: MutableMap<String, UpdateManager> = mutableMapOf()
 	private lateinit var fsManagerPlugin: FsManagerPlugin
+	private lateinit var customGroupManagerPlugin: CustomGroupManagerPlugin
 
 	private lateinit var settingsManager: SettingsManager
 
@@ -78,6 +79,13 @@ class McumgrFlutterPlugin : FlutterPlugin, MethodCallHandler {
 		logEventChannel.setStreamHandler(logStreamHandler)
 
 		fsManagerPlugin = FsManagerPlugin(
+			context,
+			logStreamHandler,
+			flutterPluginBinding.binaryMessenger,
+			mainHandler
+		)
+
+		customGroupManagerPlugin = CustomGroupManagerPlugin(
 			context,
 			logStreamHandler,
 			flutterPluginBinding.binaryMessenger,

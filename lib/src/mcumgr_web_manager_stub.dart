@@ -82,6 +82,11 @@ class WebUpdateManager extends FirmwareUpdateManager {
   }
 
   @override
+  Future<void> confirmImage(Uint8List hash) {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<void> erase([int? channel]) {
     throw UnimplementedError();
   }
