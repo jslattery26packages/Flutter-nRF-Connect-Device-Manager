@@ -7,12 +7,13 @@ environment:
 
 dependencies:
   equatable: ^2.0.7
-  file_picker: ^10.3.3
+  file_picker: ^11.0.2
   flutter:
     sdk: flutter
-  archive: ^4.0.7
+  archive: ^4.0.9
   flutter_bloc: ^9.1.1
   flutter_blue_plus: ^2.0.0
+  flutter_blue_plus_winrt: ^0.0.20
   http: ^1.5.0
   json_annotation: ^4.9.0
   mcumgr_flutter:
