@@ -323,8 +323,9 @@ public class SwiftMcumgrFlutterPlugin: NSObject, FlutterPlugin {
         guard let manager = updateManagers[uuid] else {
             throw FlutterError(code: ErrorCode.updateManagerDoesNotExist.rawValue, message: "Update manager does not exist", details: call.debugDetails)
         }
-      
-        manager.imageManager.confirm(hash: hashData) { response, error in
+
+        let hash: [UInt8] = [UInt8](hashData)
+        manager.imageManager.confirm(hash: hash) { response, error in
             if let error {
                 result(FlutterError(error: error, call: call))
                 return
