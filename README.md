@@ -1,13 +1,13 @@
 # nRF Connect Device Manager
 
-nRF Connect Device Manager library is a Flutter plugin (aka "wrapper") around the existing [Android](https://github.com/NordicSemiconductor/Android-nRF-Connect-Device-Manager) and [iOS](https://github.com/NordicSemiconductor/IOS-nRF-Connect-Device-Manager) nRF Connect Device Manager libraries. For more concrete documentation, you may also try reaching out into those for specific details.
+nRF Connect Device Manager library is a Flutter plugin (aka "wrapper") around the existing [Android](https://github.com/nordicsemi/Android-nRF-Connect-Device-Manager) and [iOS](https://github.com/nordicsemi/IOS-nRF-Connect-Device-Manager) nRF Connect Device Manager libraries. For more concrete documentation, you may also try reaching out into those for specific details.
 
 ![Platforms](https://img.shields.io/badge/Platforms-Android%20|%20iOS%20|%20macOS-333333.svg)
-[![License](https://img.shields.io/github/license/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager)](https://github.com/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager/blob/main/LICENSE)
-[![Release](https://img.shields.io/github/release/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager.svg)](https://github.com/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager/releases)
-[![GitHub stars](https://img.shields.io/github/stars/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager)](https://github.com/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager)](https://github.com/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager/members)
-[![GitHub contributors](https://img.shields.io/github/contributors/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager)](https://github.com/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager/graphs/contributors)
+[![License](https://img.shields.io/github/license/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/blob/main/LICENSE)
+[![Release](https://img.shields.io/github/release/nordicsemi/Flutter-nRF-Connect-Device-Manager.svg)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/releases)
+[![GitHub stars](https://img.shields.io/github/stars/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/members)
+[![GitHub contributors](https://img.shields.io/github/contributors/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/graphs/contributors)
 
 ___
 ## Supported Platforms
@@ -58,7 +58,7 @@ await updateManager.updateWithImageData(image: fwImage!);
 ```
 
 > [!TIP]
-> `update` and `updateWithImageData` methods are asynchronous, however, they do not return a result of the update process. They only start the update process. To listen for updates, subscribe to the `updateStream` and `progressStream`. See also [Issue #63](https://github.com/NordicSemiconductor/Flutter-nRF-Connect-Device-Manager/issues/63) for more information.
+> `update` and `updateWithImageData` methods are asynchronous, however, they do not return a result of the update process. They only start the update process. To listen for updates, subscribe to the `updateStream` and `progressStream`. See also [Issue #63](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/issues/63) for more information.
 
 ### Listening for updates
 To listen for updates, subscribe to the `updateStream` and `progressStream`:

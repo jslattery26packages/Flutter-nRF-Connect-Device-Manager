@@ -164,7 +164,7 @@ class McumgrFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
 				FlutterMethod.confirmImage -> {
 					confirmImage(call, result)
-        }
+        		}
 
 				FlutterMethod.erase -> {
 					erase(call, result)
@@ -430,7 +430,7 @@ class McumgrFlutterPlugin : FlutterPlugin, MethodCallHandler {
 		updateManager.imageManager.list(callback)
 	}
 
-	private fun confirmImage(@NonNull call: MethodCall, result: Result) {
+	private fun confirmImage(call: MethodCall, result: Result) {
 		val args = (call.arguments as? Map<*, *>).guard {
 			throw WrongArguments("Expected map arguments with deviceId and hash")
 		}
@@ -458,7 +458,7 @@ class McumgrFlutterPlugin : FlutterPlugin, MethodCallHandler {
   }
   
 	/** Erases the default secondary image slot or a specific raw image slot channel. */
-	private fun erase(@NonNull call: MethodCall, result: Result) {
+	private fun erase(call: MethodCall, result: Result) {
 		val args = (call.arguments as? Map<*, *>).guard {
 			throw WrongArguments("Erase arguments expected")
 		}
