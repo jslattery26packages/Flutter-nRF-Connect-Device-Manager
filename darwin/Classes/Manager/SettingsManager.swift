@@ -51,7 +51,9 @@ final class SettingsManager {
 
             let container = ProtoLogMessageStreamArg(uuid: transport.identifier.uuidString, msg: protoLog)
             let data = try container.serializedData()
-            sink(FlutterStandardTypedData(bytes: data))
+            DispatchQueue.main.async {
+                sink(FlutterStandardTypedData(bytes: data))
+            }
         } catch {
             print("Failed to send log to Dart: \(error.localizedDescription)")
         }
