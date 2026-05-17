@@ -6,7 +6,7 @@ import 'package:pigeon/pigeon.dart';
     dartOptions: DartOptions(),
     kotlinOut: 'android/src/main/kotlin/no/nordicsemi/android/mcumgr_flutter/Messages.g.kt',
     kotlinOptions: KotlinOptions(package: "no.nordicsemi.android.mcumgr_flutter"),
-    swiftOut: 'ios/Classes/Messages.g.swift',
+    swiftOut: 'darwin/Classes/Messages.g.swift',
     swiftOptions: SwiftOptions(),
   ),
 )
