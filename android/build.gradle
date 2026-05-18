@@ -66,7 +66,7 @@ dependencies {
     // Keep protobuf-lite below 4.34 to avoid DescriptorProtos duplication with
     // Firebase's protolite-well-known-types in host apps.
     // See: https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/issues/152
-    implementation 'com.google.protobuf:protobuf-kotlin-lite:3.25.5'
+    implementation 'com.google.protobuf:protobuf-kotlin-lite:3.25.9'
 
     implementation 'com.fasterxml.jackson.core:jackson-core:2.21.3'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.21'
