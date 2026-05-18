@@ -1,3 +1,6 @@
+## 0.9.1
+- Protobuf downgraded to 3.25.4 to fix collision with Firebase.
+
 ## 0.9.0
 - Added `confirmImage(hash)` method for manual firmware confirmation after `testOnly` mode
 - Added Settings Manager support:
@@ -5,6 +8,7 @@
   - Support for CBOR encoding and 4-byte padding options
   - Methods to read all settings, read specific settings, and write settings
   - Full support for different data types (string, numeric, boolean)
+- Added Custom Group Manager support:
 
 ## 0.8.1
 - Unused dependency to `tuple` removed
