@@ -4,5 +4,8 @@
 #import <Flutter/Flutter.h>
 #endif
 
-@interface McumgrFlutterPlugin : NSObject<FlutterPlugin>
-@end
+#if __has_include(<mcumgr_flutter/mcumgr_flutter-Swift.h>)
+#import <mcumgr_flutter/mcumgr_flutter-Swift.h>
+#else
+#import "mcumgr_flutter-Swift.h"
+#endif

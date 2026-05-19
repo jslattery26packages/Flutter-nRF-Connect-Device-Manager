@@ -10,20 +10,24 @@ let package = Package(
         .macOS("10.15"),
     ],
     products: [
-        .library(name: "mcumgr_flutter", targets: ["mcumgr_flutter"]),
+        .library(name: "mcumgr-flutter", targets: ["mcumgr_flutter"]),
     ],
     dependencies: [
-        .package(name: "FlutterFramework", path: "../FlutterFramework"),
         .package(url: "https://github.com/nordicsemi/IOS-nRF-Connect-Device-Manager.git", from: "1.12.0"),
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.0.0"),
+        .package(name: "FlutterFramework", path: "../FlutterFramework"),
     ],
     targets: [
         .target(
             name: "mcumgr_flutter",
             dependencies: [
-                .product(name: "FlutterFramework", package: "FlutterFramework"),
                 .product(name: "iOSMcuManagerLibrary", package: "ios-nrf-connect-device-manager"),
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
+                .product(name: "FlutterFramework", package: "FlutterFramework"),
+            ],
+            exclude: [
+                "McumgrFlutterPlugin.h",
+                "McumgrFlutterPlugin.m",
             ],
             resources: [
                 // TODO: If you have other resources that need to be bundled with your plugin, refer to
