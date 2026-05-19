@@ -6,7 +6,7 @@ import 'package:pigeon/pigeon.dart';
     dartOptions: DartOptions(),
     kotlinOut: 'android/src/main/kotlin/no/nordicsemi/android/mcumgr_flutter/Messages.g.kt',
     kotlinOptions: KotlinOptions(package: "no.nordicsemi.android.mcumgr_flutter"),
-    swiftOut: 'darwin/Classes/Messages.g.swift',
+    swiftOut: 'ios/mcumgr_flutter/Sources/mcumgr_flutter/messages.g.swift',
     swiftOptions: SwiftOptions(),
   ),
 )
@@ -80,12 +80,7 @@ abstract class CustomGroupManagerApi {
   /// [opOverride] overrides byte 0 (op) of the SMP header.
   /// [flagsOverride] overrides byte 1 (flags) of the SMP header.
   /// All parameters are optional; omit to leave the field unmodified.
-  void setupDecorator(
-    String remoteId,
-    Uint8List? suffix,
-    int? opOverride,
-    int? flagsOverride,
-  );
+  void setupDecorator(String remoteId, Uint8List? suffix, int? opOverride, int? flagsOverride);
 
   /// Sends a custom SMP command and returns the raw response payload
   /// (the 8-byte SMP header is stripped before returning).
@@ -95,13 +90,7 @@ abstract class CustomGroupManagerApi {
   /// [op]        – SMP operation code (`0` = read, `2` = write).
   /// [payload]   – string-keyed map CBOR-encoded as the request payload.
   @async
-  Uint8List sendCustomCommand(
-    String remoteId,
-    int groupId,
-    int commandId,
-    int op,
-    Map<String?, Object?> payload,
-  );
+  Uint8List sendCustomCommand(String remoteId, int groupId, int commandId, int op, Map<String?, Object?> payload);
 
   /// Releases all native resources for the given device.
   void kill(String remoteId);

@@ -13,7 +13,7 @@ A new flutter plugin project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'mcumgr_flutter/Sources/mcumgr_flutter/**/*.swift'
   s.dependency 'iOSMcuManagerLibrary', '= 1.12'
   s.dependency 'SwiftProtobuf'
   s.ios.dependency 'Flutter'
