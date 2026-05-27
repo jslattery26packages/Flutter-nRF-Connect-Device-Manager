@@ -27,7 +27,7 @@ extension McuMgrLogCategory {
         case .transport: return .transport
         case .settings: return .config
         case .crash: return .crash
-        case .`default`: return .`default`
+        case .default: return .default
         case .filesystemManager: return .fs
         case .image: return .image
         case .log: return .log
@@ -35,9 +35,10 @@ extension McuMgrLogCategory {
         case .stats: return .stats
         case .dfu: return .dfu
         case .basic:
-            return .`default`
+            return .default
         case .shell: return .shell
         case .suit: return .suit
+        case .memfault: return .default
         }
     }
 }
@@ -45,15 +46,15 @@ extension McuMgrLogCategory {
 extension ProtoLogMessageStreamArg {
     init(uuid: String, msg: ProtoLogMessage) {
         self.uuid = uuid
-        self.protoLogMessage = msg
+        protoLogMessage = msg
     }
 }
 
 extension ProtoLogMessage {
     init(message: String, category: ProtoLogMessage.LogCategory, level: ProtoLogMessage.LogLevel, timeInterval: TimeInterval) {
         self.message = message
-        self.logCategory = category
-        self.logLevel = level
-        self.logDateTime = Int64(timeInterval * 1000)
+        logCategory = category
+        logLevel = level
+        logDateTime = Int64(timeInterval * 1000)
     }
 }
