@@ -2,21 +2,26 @@
 
 nRF Connect Device Manager library is a Flutter plugin (aka "wrapper") around the existing [Android](https://github.com/nordicsemi/Android-nRF-Connect-Device-Manager) and [iOS](https://github.com/nordicsemi/IOS-nRF-Connect-Device-Manager) nRF Connect Device Manager libraries. For more concrete documentation, you may also try reaching out into those for specific details.
 
-![Platforms](https://img.shields.io/badge/Platforms-Android%20|%20iOS%20|%20macOS-333333.svg)
+![Platforms](https://img.shields.io/badge/Platforms-Android%20|%20iOS%20|%20macOS%20|%20Web-333333.svg)
 [![License](https://img.shields.io/github/license/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/blob/main/LICENSE)
 [![Release](https://img.shields.io/github/release/nordicsemi/Flutter-nRF-Connect-Device-Manager.svg)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/releases)
 [![GitHub stars](https://img.shields.io/github/stars/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/members)
 [![GitHub contributors](https://img.shields.io/github/contributors/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/graphs/contributors)
 
-___
+---
+
 ## Supported Platforms
+
 - Android: `minSdkVersion 21`
 - iOS: `13.0`
-- MacOS: `10.15`
+- macOS: `10.15`
+- Web: Chrome 56+ (Web Bluetooth required)
 
 ## Getting Started
+
 ### Creating a manager
+
 Use `UpdateManagerFactory` to create an instance of `FirmwareUpdateManager`:
 
 ```dart
@@ -28,6 +33,7 @@ final updateStream = updateManager.setup();
 ```
 
 ### Updating the device
+
 To update the device, call `update` method on the `FirmwareUpdateManager` instance:
 
 ```dart
@@ -61,6 +67,7 @@ await updateManager.updateWithImageData(image: fwImage!);
 > `update` and `updateWithImageData` methods are asynchronous, however, they do not return a result of the update process. They only start the update process. To listen for updates, subscribe to the `updateStream` and `progressStream`. See also [Issue #63](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/issues/63) for more information.
 
 ### Listening for updates
+
 To listen for updates, subscribe to the `updateStream` and `progressStream`:
 
 ```dart
@@ -78,6 +85,7 @@ updateManager.progressStream.listen((event) {
 ```
 
 ### Controlling the update
+
 To control the update, use `FirmwareUpdateManager` methods:
 
 ```dart
@@ -98,6 +106,7 @@ To control the update, use `FirmwareUpdateManager` methods:
 ```
 
 ### Killing the manager
+
 After the update is finished, call `kill` to kill the manager, otherwise it will lead to memory leaks and other issues:
 
 ```dart
@@ -105,6 +114,7 @@ updateManager.kill();
 ```
 
 ### Reading image list
+
 To read the current image list (installed firmware slots) from the device:
 
 ```dart
@@ -112,6 +122,7 @@ List<ImageSlot>? slots = await updateManager.readImageList();
 ```
 
 ### Confirming an image
+
 When using `FirmwareUpgradeMode.testOnly`, the new firmware runs without being confirmed. Use `confirmImage` to permanently mark it as the active image after your own validation:
 
 ```dart
@@ -123,6 +134,7 @@ await updateManager.confirmImage(activeSlot.hash);
 If `confirmImage` is not called before the next reboot, the bootloader will revert to the previous firmware.
 
 ## Reading logs
+
 To listen for logs, subscribe to the `logger.logMessageStream`:
 
 ```dart
@@ -140,10 +152,29 @@ List<McuLogMessage> logs =
         await updateManager.logger.readLogs(clearLogs: false);
 ```
 
+## Web Setup
+
+Web support uses the [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API), which is currently supported in Chrome and Chrome-based browsers. It requires a **secure context** (HTTPS or `localhost`).
+
+### Required: Add script tag to `web/index.html`
+
+Add the following `<script>` tag to your app's `web/index.html` **before** `flutter_bootstrap.js`. This installs an intercept that caches the BLE device obtained during scanning so the firmware update flow can reuse it without prompting the user a second time.
+
+```html
+<body>
+  <script src="assets/packages/mcumgr_flutter/lib/src/mcumgr_web/mcumgr_setup.js"></script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+```
+
+Without this script, the browser will show a second Bluetooth device picker when the firmware update starts.
+
 ## Settings Manager
+
 The Settings Manager provides functionality to read and write device configuration settings via the MCU Manager protocol.
 
 ### Creating a Settings Manager
+
 ```dart
 import 'package:mcumgr_flutter/mcumgr_flutter.dart';
 
@@ -151,6 +182,7 @@ final mcumgrSettings = McumgrSettings();
 ```
 
 ### Initializing the Settings Manager
+
 Before using the settings manager, you must initialize it with the device address:
 
 ```dart
@@ -162,6 +194,7 @@ await mcumgrSettings.init(
 ```
 
 ### Reading Settings
+
 You can read all settings or a specific setting:
 
 ```dart
@@ -175,6 +208,7 @@ final rawBytes = await mcumgrSettings.readSetting('config/timeout/value');
 ```
 
 ### Writing Settings
+
 To write a setting:
 
 ```dart
@@ -187,6 +221,7 @@ await mcumgrSettings.writeSetting('feature/enabled', true);
 ```
 
 ### Decoding Setting Values
+
 Settings are returned as raw bytes (`Uint8List`). You need to decode them based on their expected type:
 
 ```dart
@@ -211,6 +246,7 @@ bool decodeBoolSetting(Uint8List bytes) {
 ```
 
 ### Disposing the Settings Manager
+
 When you're done using the settings manager:
 
 ```dart
@@ -218,6 +254,7 @@ await mcumgrSettings.dispose();
 ```
 
 ### Complete Example
+
 ```dart
 final mcumgrSettings = McumgrSettings();
 
@@ -236,7 +273,7 @@ try {
 
   // Write a setting
   await mcumgrSettings.writeSetting('device/name', 'NewDeviceName');
-  
+
 } catch (e) {
   print('Error: $e');
 } finally {
