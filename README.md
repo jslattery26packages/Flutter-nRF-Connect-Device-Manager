@@ -2,7 +2,7 @@
 
 nRF Connect Device Manager library is a Flutter plugin (aka "wrapper") around the existing [Android](https://github.com/nordicsemi/Android-nRF-Connect-Device-Manager) and [iOS](https://github.com/nordicsemi/IOS-nRF-Connect-Device-Manager) nRF Connect Device Manager libraries. For more concrete documentation, you may also try reaching out into those for specific details.
 
-![Platforms](https://img.shields.io/badge/Platforms-Android%20|%20iOS%20|%20macOS-333333.svg)
+![Platforms](https://img.shields.io/badge/Platforms-Android%20|%20iOS%20|%20macOS%20|%20Web-333333.svg)
 [![License](https://img.shields.io/github/license/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/blob/main/LICENSE)
 [![Release](https://img.shields.io/github/release/nordicsemi/Flutter-nRF-Connect-Device-Manager.svg)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/releases)
 [![GitHub stars](https://img.shields.io/github/stars/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/stargazers)
@@ -13,7 +13,8 @@ ___
 ## Supported Platforms
 - Android: `minSdkVersion 21`
 - iOS: `13.0`
-- MacOS: `10.15`
+- macOS: `10.15`
+- Web: Chrome 56+ (Web Bluetooth required)
 
 ## Getting Started
 ### Creating a manager
@@ -139,6 +140,28 @@ To read logs from the device, use `readLog` method:
 List<McuLogMessage> logs =
         await updateManager.logger.readLogs(clearLogs: false);
 ```
+
+## Web Setup
+Web support uses the [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API), which is currently supported in Chrome and Chrome-based browsers. It requires a **secure context** (HTTPS or `localhost`).
+
+### Required: Add script tag to `web/index.html`
+
+Add the following `<script>` tag to your app's `web/index.html` **before** `flutter_bootstrap.js`. This installs an intercept that caches the BLE device obtained during scanning so the firmware update flow can reuse it without prompting the user a second time.
+
+```html
+<body>
+  <script src="assets/packages/mcumgr_flutter/lib/src/mcumgr_web/mcumgr_setup.js"></script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+```
+
+Without this script, the browser will show a second Bluetooth device picker when the firmware update starts.
+
+### Web behaviour differences
+- The `deviceId` passed to `getUpdateManager()` must be the browser-assigned opaque device UUID (not a MAC address).
+- MAC addresses are intentionally hidden by the Web Bluetooth API and cannot be retrieved.
+- `readImageList()`, `confirmImage()`, and `erase()` are not supported on web and will throw `UnimplementedError`.
+- `pause()` and `resume()` are no-ops on web.
 
 ## Settings Manager
 The Settings Manager provides functionality to read and write device configuration settings via the MCU Manager protocol.
