@@ -9,15 +9,19 @@ nRF Connect Device Manager library is a Flutter plugin (aka "wrapper") around th
 [![GitHub forks](https://img.shields.io/github/forks/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/members)
 [![GitHub contributors](https://img.shields.io/github/contributors/nordicsemi/Flutter-nRF-Connect-Device-Manager)](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/graphs/contributors)
 
-___
+---
+
 ## Supported Platforms
+
 - Android: `minSdkVersion 21`
 - iOS: `13.0`
 - macOS: `10.15`
 - Web: Chrome 56+ (Web Bluetooth required)
 
 ## Getting Started
+
 ### Creating a manager
+
 Use `UpdateManagerFactory` to create an instance of `FirmwareUpdateManager`:
 
 ```dart
@@ -29,6 +33,7 @@ final updateStream = updateManager.setup();
 ```
 
 ### Updating the device
+
 To update the device, call `update` method on the `FirmwareUpdateManager` instance:
 
 ```dart
@@ -62,6 +67,7 @@ await updateManager.updateWithImageData(image: fwImage!);
 > `update` and `updateWithImageData` methods are asynchronous, however, they do not return a result of the update process. They only start the update process. To listen for updates, subscribe to the `updateStream` and `progressStream`. See also [Issue #63](https://github.com/nordicsemi/Flutter-nRF-Connect-Device-Manager/issues/63) for more information.
 
 ### Listening for updates
+
 To listen for updates, subscribe to the `updateStream` and `progressStream`:
 
 ```dart
@@ -79,6 +85,7 @@ updateManager.progressStream.listen((event) {
 ```
 
 ### Controlling the update
+
 To control the update, use `FirmwareUpdateManager` methods:
 
 ```dart
@@ -99,6 +106,7 @@ To control the update, use `FirmwareUpdateManager` methods:
 ```
 
 ### Killing the manager
+
 After the update is finished, call `kill` to kill the manager, otherwise it will lead to memory leaks and other issues:
 
 ```dart
@@ -106,6 +114,7 @@ updateManager.kill();
 ```
 
 ### Reading image list
+
 To read the current image list (installed firmware slots) from the device:
 
 ```dart
@@ -113,6 +122,7 @@ List<ImageSlot>? slots = await updateManager.readImageList();
 ```
 
 ### Confirming an image
+
 When using `FirmwareUpgradeMode.testOnly`, the new firmware runs without being confirmed. Use `confirmImage` to permanently mark it as the active image after your own validation:
 
 ```dart
@@ -124,6 +134,7 @@ await updateManager.confirmImage(activeSlot.hash);
 If `confirmImage` is not called before the next reboot, the bootloader will revert to the previous firmware.
 
 ## Reading logs
+
 To listen for logs, subscribe to the `logger.logMessageStream`:
 
 ```dart
@@ -142,6 +153,7 @@ List<McuLogMessage> logs =
 ```
 
 ## Web Setup
+
 Web support uses the [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API), which is currently supported in Chrome and Chrome-based browsers. It requires a **secure context** (HTTPS or `localhost`).
 
 ### Required: Add script tag to `web/index.html`
@@ -157,16 +169,12 @@ Add the following `<script>` tag to your app's `web/index.html` **before** `flut
 
 Without this script, the browser will show a second Bluetooth device picker when the firmware update starts.
 
-### Web behaviour differences
-- The `deviceId` passed to `getUpdateManager()` must be the browser-assigned opaque device UUID (not a MAC address).
-- MAC addresses are intentionally hidden by the Web Bluetooth API and cannot be retrieved.
-- `readImageList()`, `confirmImage()`, and `erase()` are not supported on web and will throw `UnimplementedError`.
-- `pause()` and `resume()` are no-ops on web.
-
 ## Settings Manager
+
 The Settings Manager provides functionality to read and write device configuration settings via the MCU Manager protocol.
 
 ### Creating a Settings Manager
+
 ```dart
 import 'package:mcumgr_flutter/mcumgr_flutter.dart';
 
@@ -174,6 +182,7 @@ final mcumgrSettings = McumgrSettings();
 ```
 
 ### Initializing the Settings Manager
+
 Before using the settings manager, you must initialize it with the device address:
 
 ```dart
@@ -185,6 +194,7 @@ await mcumgrSettings.init(
 ```
 
 ### Reading Settings
+
 You can read all settings or a specific setting:
 
 ```dart
@@ -198,6 +208,7 @@ final rawBytes = await mcumgrSettings.readSetting('config/timeout/value');
 ```
 
 ### Writing Settings
+
 To write a setting:
 
 ```dart
@@ -210,6 +221,7 @@ await mcumgrSettings.writeSetting('feature/enabled', true);
 ```
 
 ### Decoding Setting Values
+
 Settings are returned as raw bytes (`Uint8List`). You need to decode them based on their expected type:
 
 ```dart
@@ -234,6 +246,7 @@ bool decodeBoolSetting(Uint8List bytes) {
 ```
 
 ### Disposing the Settings Manager
+
 When you're done using the settings manager:
 
 ```dart
@@ -241,6 +254,7 @@ await mcumgrSettings.dispose();
 ```
 
 ### Complete Example
+
 ```dart
 final mcumgrSettings = McumgrSettings();
 
@@ -259,7 +273,7 @@ try {
 
   // Write a setting
   await mcumgrSettings.writeSetting('device/name', 'NewDeviceName');
-  
+
 } catch (e) {
   print('Error: $e');
 } finally {
