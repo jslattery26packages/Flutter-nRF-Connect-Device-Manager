@@ -38,6 +38,7 @@ flutter:
 
   assets:
     - assets/mock_logs.txt
+    - lib/src/mcumgr_web/mcumgr_setup.js
     - lib/src/mcumgr_web/mcumgr_interop.js
     - lib/src/mcumgr_web/mcumgr.js
     - lib/src/mcumgr_web/cbor.js
