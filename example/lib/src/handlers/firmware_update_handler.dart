@@ -102,7 +102,7 @@ class FirmwareUnpacker extends FirmwareUpdateHandler {
     }
 
     firmware.firmwareImages = [];
-    for (final file in manifest.files) {
+    for (final file in manifest.files..sort((a, b) => a.image.compareTo(b.image))) {
       final firmwareFileEntry = archive.findFile(file.file);
       if (firmwareFileEntry == null) {
         throw Exception('File ${file.file} not found in zip');
