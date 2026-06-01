@@ -38,7 +38,7 @@ extension McuMgrLogCategory {
             return .default
         case .shell: return .shell
         case .suit: return .suit
-        case .memfault: return .default
+        case .memfault: return .memfault
         }
     }
 }
@@ -46,15 +46,15 @@ extension McuMgrLogCategory {
 extension ProtoLogMessageStreamArg {
     init(uuid: String, msg: ProtoLogMessage) {
         self.uuid = uuid
-        protoLogMessage = msg
+        self.protoLogMessage = msg
     }
 }
 
 extension ProtoLogMessage {
     init(message: String, category: ProtoLogMessage.LogCategory, level: ProtoLogMessage.LogLevel, timeInterval: TimeInterval) {
         self.message = message
-        logCategory = category
-        logLevel = level
-        logDateTime = Int64(timeInterval * 1000)
+        self.logCategory = category
+        self.logLevel = level
+        self.logDateTime = Int64(timeInterval * 1000)
     }
 }
