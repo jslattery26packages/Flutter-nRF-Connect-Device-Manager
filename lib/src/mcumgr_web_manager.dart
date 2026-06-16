@@ -15,6 +15,8 @@ extension type McuMgrFlutterJS._(JSObject _) implements JSObject {
   external void pause(JSString deviceId);
   external void resume(JSString deviceId);
   external void cancel(JSString deviceId);
+  external JSArray<McuCachedDevice> getCachedDevices();
+  external void clearCachedDevices();
 }
 
 class WebUpdateManager extends FirmwareUpdateManager {
@@ -207,6 +209,13 @@ class WebUpdateManager extends FirmwareUpdateManager {
 }
 
 // Interop Extensions
+
+@JS()
+extension type McuCachedDevice._(JSObject _) implements JSObject {
+  external JSString get id;
+  external JSString? get name;
+  external JSBoolean get watchingAdvertisements;
+}
 
 @JS()
 extension type McuImage._(JSObject _) implements JSObject {
