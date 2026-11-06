@@ -1,3 +1,19 @@
+## 0.10.1
+- Fix Android image index in firmware slot responses (#188).
+- Migrated to build-in Kotlin from AGP 9 (#189).
+
+## 0.10.0
+- Updates the minimum supported SDK version to Flutter 3.44/Dart 3.12.
+- Migrates Android build files to AGP 9's new DSL. Keeps the classic Kotlin Gradle Plugin rather than AGP's built-in Kotlin, since AGP 9.4.1's bundled compiler can't yet read the Kotlin 2.4 metadata `mcumgr-ble` requires.
+- [Bugfix] Fixed Direct XIP target slot being dropped on Android, causing subsequent updates to silently transfer nothing (#172).
+- Migrated iOS/macOS to Swift Package Manager, while remaining backwards compatible with CocoaPods (#156).
+- Updated Android `mcumgr-ble` from 2.9.0 to 3.4.1 (packages renamed from `io.runtime.mcumgr` to `no.nordicsemi.android.mcumgr`).
+- Updated `protobuf` from 5.1.0 to 6.1.0.
+- Updated `pigeon` (dev dependency) from 26.3.4 to 29.0.4. `@async` methods now generate as coroutines/`async` on Kotlin/Swift instead of callbacks; ported `CustomGroupManagerPlugin`/`FsManagerPlugin` on both platforms accordingly.
+- Implemented `CustomGroupManagerApi` (the custom SMP command feature) on iOS/macOS; it was Android-only since it was introduced.
+- Added a "Custom Group Manager" screen to the example app for sending ad-hoc SMP commands with a hex op/group/command and string-keyed payload parameters.
+- Added `meta` as a direct dependency; it was only resolved transitively, which `dart pub publish` flags as an error since `lib/src/messages.g.dart` imports it directly.
+
 ## 0.9.1
 - Protobuf downgraded to 3.25.4 to fix collision with Firebase.
 
